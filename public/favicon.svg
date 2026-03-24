@@ -1,0 +1,12 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="56" height="56" rx="12" fill="#0a0a0a"/>
+  <circle cx="28" cy="28" r="27" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M14 30 Q14 24 19 22 L22 21 Q24 20.5 24 23 L24 28" stroke="#f5f0e8" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M24 23 L24 19 Q24 17 26 17 Q28 17 28 19 L28 26" stroke="#f5f0e8" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M28 20 L28 17 Q28 15.5 30 15.5 Q32 15.5 32 17 L32 25" stroke="#f5f0e8" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M32 22 L32 19 Q32 17.5 34 17.5 Q36 17.5 36 19 L36 27" stroke="#f5f0e8" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M14 30 Q14 36 18 38 L24 40 Q28 41 32 40 L36 38 Q40 36 40 30 L40 27 Q36 27 32 25 L28 23 Q24 23 24 28 Q20 28 14 30 Z" fill="#c0392b" fill-opacity="0.2"/>
+  <path d="M14 30 Q14 36 18 38 L24 40 Q28 41 32 40 L36 38 Q40 36 40 30 L40 27 Q36 27 32 25 L28 23 Q24 23 24 28 Q20 28 14 30 Z" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <circle cx="28" cy="34" r="4" fill="#c0392b"/>
+  <text x="28" y="36.5" text-anchor="middle" font-size="5" fill="#f5f0e8" font-weight="bold">✓</text>
+</svg>
