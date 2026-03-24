@@ -5,7 +5,7 @@ import { studionet } from "genlayer-js/chains";
 import { TransactionStatus } from "genlayer-js/types";
 
 const CONTRACT_ADDRESS =
-  process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ?? "PASTE_YOUR_CONTRACT_ADDRESS_HERE";
+  process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ?? "0x2B7e6204ca1aaA86990a73f2739a2f36a3a60451";
 
 type Screen =
   | "home"
