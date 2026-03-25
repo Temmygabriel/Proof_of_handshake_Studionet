@@ -13,8 +13,7 @@ const studionet = {
   testnet: true,
 };
 
-const CONTRACT_ADDRESS =
-  process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ?? "0x2B7e6204ca1aaA86990a73f2739a2f36a3a60451";
+const CONTRACT_ADDRESS = "0x2B7e6204ca1aaA86990a73f2739a2f36a3a60451";
 
 type Screen =
   | "home"
