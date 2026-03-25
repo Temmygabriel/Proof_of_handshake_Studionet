@@ -1009,6 +1009,7 @@ export default function Home() {
 <div className="poh-vcard" style={{background:"rgba(212,168,67,0.04)", border:"1px solid rgba(212,168,67,0.2)"}}>
   <h3 style={{color:"var(--gold2)"}}>🔁 This Is Not Final Yet</h3>
   <p style={{marginBottom:"1.25rem"}}>The losing party may appeal or accept this verdict. If appealed, a fresh panel of 5 validators reviews the full case and must explicitly address why they uphold or overturn this ruling. After Round 2, the verdict is locked forever.</p>
+  
   <div className="poh-appeal-actions">
     {/* No role selected — prompt them to identify first */}
     {!myRole && (
