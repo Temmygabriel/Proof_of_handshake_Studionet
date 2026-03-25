@@ -335,31 +335,21 @@ export default function Home() {
   };
 
   const copyCaseId = () => {
-    if (caseId) { 
-      navigator.clipboard.writeText(String(caseId));
-      setCopied(true); 
-      setTimeout(() => setCopied(false), 2000); 
-    }
+    if (caseId) { navigator.clipboard.writeText(String(caseId)); setCopied(true); setTimeout(() => setCopied(false), 2000); }
   };
 
   const copyVerdictLink = () => {
     const winner = caseData ? resolveWinner(caseData) : "guest";
     const txt = `Proof of Handshake — Case #${caseId}\nVerdict: ${winner === "guest" ? "GUEST WINS" : "HOST WINS"}\nRuling: ${caseData?.verdict}\nCase ID: ${caseId}\nSite: ${typeof window !== "undefined" ? window.location.origin : ""}`;
     navigator.clipboard.writeText(txt);
-    setVerdictCopied(true);
-    setTimeout(() => setVerdictCopied(false), 2500);
+    setVerdictCopied(true); setTimeout(() => setVerdictCopied(false), 2500);
   };
 
   const myLabel = myRole === "host" ? "Host" : "Guest";
   const otherLabel = myRole === "host" ? "Guest" : "Host";
   const myTagClass = myRole === "host" ? "poh-host-tag" : "poh-guest-tag";
   const myIcon = myRole === "host" ? "🏠" : "👤";
-
-  return (
-    <main className="poh-main">
-      <style>{`
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+  const knownRole = !!myRole;
 
   return (
     <main className="poh-main">
@@ -1019,7 +1009,6 @@ export default function Home() {
 <div className="poh-vcard" style={{background:"rgba(212,168,67,0.04)", border:"1px solid rgba(212,168,67,0.2)"}}>
   <h3 style={{color:"var(--gold2)"}}>🔁 This Is Not Final Yet</h3>
   <p style={{marginBottom:"1.25rem"}}>The losing party may appeal or accept this verdict. If appealed, a fresh panel of 5 validators reviews the full case and must explicitly address why they uphold or overturn this ruling. After Round 2, the verdict is locked forever.</p>
-  
   <div className="poh-appeal-actions">
     {/* No role selected — prompt them to identify first */}
     {!myRole && (
