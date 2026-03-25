@@ -1,17 +1,9 @@
 "use client";
 import { useState, useCallback } from "react";
 import { createClient, createAccount } from "genlayer-js";
+import { studionet } from "genlayer-js/chains";       
 import { TransactionStatus } from "genlayer-js/types";
 
-const studionet = {
-  id: 61999,
-  name: "GenLayer Studionet",
-  rpcUrls: {
-    default: { http: ["https://studio.genlayer.com/api"] },
-  },
-  nativeCurrency: { name: "GEN Token", symbol: "GEN", decimals: 18 },
-  testnet: true,
-};
 
 const CONTRACT_ADDRESS = "0x2B7e6204ca1aaA86990a73f2739a2f36a3a60451";
 
