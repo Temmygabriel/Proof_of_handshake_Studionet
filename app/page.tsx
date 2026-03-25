@@ -79,7 +79,7 @@ async function writeContract(fn: string, args: (string | number | boolean | bigi
       functionName: fn,
       args,
       value: BigInt(0),
-      leaderOnly: true,
+      leaderOnly: false,
     } as any);
     await client.waitForTransactionReceipt({
       hash,
