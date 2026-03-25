@@ -1005,36 +1005,78 @@ export default function Home() {
                   <div className="poh-contract-ref">Contract: <span className="poh-mono">{CONTRACT_ADDRESS.slice(0,10)}...{CONTRACT_ADDRESS.slice(-6)}</span></div>
                 </div>
 
-                {/* APPEALS DECISION */}
-                <div className="poh-vcard" style={{background:"rgba(212,168,67,0.04)", border:"1px solid rgba(212,168,67,0.2)"}}>
-                  <h3 style={{color:"var(--gold2)"}}>🔁 This Is Not Final Yet</h3>
-                  <p style={{marginBottom:"1.25rem"}}>Either party can accept this verdict or file an appeal. If appealed, a new panel of 5 validators will review the full case — and must explicitly address why they uphold or overturn this ruling. After Round 2, the verdict is locked forever.</p>
-                  <div className="poh-appeal-actions">
-                    {myRole && (
-                      <>
-                        <button className="poh-btn-red poh-btn-full" onClick={() => setScreen("appeal")}>
-                          🔁 I Disagree — File an Appeal (Round 2)
-                        </button>
-                        <div className="poh-appeal-divider"><span>or</span></div>
-                        <button className="poh-btn-green poh-btn-full" onClick={handleAcceptVerdict}>
-                          ✓ I Accept This Verdict — Lock It Final
-                        </button>
-                      </>
-                    )}
-                    {!myRole && (
-                      <>
-                        <p className="poh-appeal-note">To file an appeal or accept this verdict, reload this case using your case ID and select your role first.</p>
-                        <button className="poh-btn-outline poh-btn-full" onClick={() => { setLoadId(String(caseData.case_id)); setScreen("role_select"); }}>
-                          Select My Role →
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
+{/* APPEALS DECISION */}
+<div className="poh-vcard" style={{background:"rgba(212,168,67,0.04)", border:"1px solid rgba(212,168,67,0.2)"}}>
+  <h3 style={{color:"var(--gold2)"}}>🔁 This Is Not Final Yet</h3>
+  <p style={{marginBottom:"1.25rem"}}>The losing party may appeal or accept this verdict. If appealed, a fresh panel of 5 validators reviews the full case and must explicitly address why they uphold or overturn this ruling. After Round 2, the verdict is locked forever.</p>
+  <div className="poh-appeal-actions">
+    {/* No role selected — prompt them to identify first */}
+    {!myRole && (
+      <>
+        <p className="poh-appeal-note">To take action on this verdict, reload this case with your role selected.</p>
+        <button className="poh-btn-outline poh-btn-full" onClick={() => { setLoadId(String(caseData.case_id)); setScreen("role_select"); }}>
+          Select My Role →
+        </button>
+      </>
+    )}
+
+    {/* Role selected — winner sees waiting UI, loser sees action buttons */}
+    {myRole && (() => {
+      const iWon = resolveWinner(caseData) === myRole;
+      if (iWon) {
+        return (
+          <div style={{
+            background: "rgba(39,174,96,0.06)",
+            border: "1px solid rgba(39,174,96,0.2)",
+            borderRadius: "var(--r)",
+            padding: "1.25rem",
+            display: "flex",
+            flexDirection: "column" as const,
+            gap: "0.75rem",
+            alignItems: "center",
+            textAlign: "center" as const,
+          }}>
+            <div style={{fontSize:"2rem"}}>🏆</div>
+            <div style={{fontSize:"1rem", fontWeight:700, color:"var(--green2)"}}>
+              You won this round
             </div>
-          );
-        })()}
+            <div style={{fontSize:"0.82rem", color:"var(--muted2)", lineHeight:1.65, maxWidth:"320px"}}>
+              The {myRole === "host" ? "guest" : "host"} can accept this verdict or file an appeal within their own session. You'll be notified of the outcome when they act — or check back using Case ID <strong style={{color:"var(--text2)"}}>#{caseData.case_id}</strong>.
+            </div>
+            <div style={{
+              display:"flex", alignItems:"center", gap:"8px",
+              background:"rgba(255,255,255,0.04)", border:"1px solid var(--ink4)",
+              borderRadius:"999px", padding:"0.3rem 1rem",
+              fontSize:"0.75rem", color:"var(--muted1)", fontFamily:"monospace"
+            }}>
+              <span style={{width:7, height:7, borderRadius:"50%", background:"var(--gold2)", display:"inline-block", flexShrink:0}} />
+              Awaiting {myRole === "host" ? "guest" : "host"} response
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <>
+            <div style={{
+              background:"rgba(192,57,43,0.06)", border:"1px solid rgba(192,57,43,0.2)",
+              borderRadius:"var(--r)", padding:"0.75rem 1rem",
+              fontSize:"0.82rem", color:"#f5a0a0", lineHeight:1.65
+            }}>
+              ⚠️ You lost Round 1. You may appeal or accept the verdict below. This is your only appeal — after Round 2 the result is locked permanently.
+            </div>
+            <button className="poh-btn-red poh-btn-full" onClick={() => setScreen("appeal")}>
+              🔁 I Disagree — File an Appeal (Round 2)
+            </button>
+            <div className="poh-appeal-divider"><span>or</span></div>
+            <button className="poh-btn-green poh-btn-full" onClick={handleAcceptVerdict}>
+              ✓ I Accept This Verdict — Lock It Final
+            </button>
+          </>
+        );
+      }
+    })()}
+  </div>
+</div>
 
         {/* ── APPEAL SCREEN ── */}
         {screen === "appeal" && caseData && (
