@@ -335,14 +335,19 @@ export default function Home() {
   };
 
   const copyCaseId = () => {
-    if (caseId) { navigator.clipboard.writeText(String(caseId)); setCopied(true); setTimeout(() => setCopied(false), 2000); }
+    if (caseId) {
+      navigator.clipboard.writeText(String(caseId));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } // This was the missing bracket!
   };
 
   const copyVerdictLink = () => {
     const winner = caseData ? resolveWinner(caseData) : "guest";
     const txt = `Proof of Handshake — Case #${caseId}\nVerdict: ${winner === "guest" ? "GUEST WINS" : "HOST WINS"}\nRuling: ${caseData?.verdict}\nCase ID: ${caseId}\nSite: ${typeof window !== "undefined" ? window.location.origin : ""}`;
     navigator.clipboard.writeText(txt);
-    setVerdictCopied(true); setTimeout(() => setVerdictCopied(false), 2500);
+    setVerdictCopied(true);
+    setTimeout(() => setVerdictCopied(false), 2500);
   };
 
   const myLabel = myRole === "host" ? "Host" : "Guest";
