@@ -357,6 +357,12 @@ export default function Home() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
+  return (
+    <main className="poh-main">
+      <style>{`
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
         :root {
           --ink0: #0a0a0a;
           --ink1: #111111;
