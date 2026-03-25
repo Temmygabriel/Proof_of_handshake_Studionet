@@ -98,7 +98,7 @@ async function readCase(caseId: number): Promise<CaseState | null> {
   try {
     const { client } = makeClient();
     const result = await client.readContract({
-      address: CONTRACT_ADDRESS as `0x${string}`,
+      address: CONTRACT_ADDRESS as any,
       functionName: "get_case",
       args: [caseId],
     });
@@ -112,7 +112,7 @@ async function readCaseCount(): Promise<number> {
   try {
     const { client } = makeClient();
     const result = await client.readContract({
-      address: CONTRACT_ADDRESS as `0x${string}`,
+      address: CONTRACT_ADDRESS as any,
       functionName: "get_case_count",
       args: [],
     });
