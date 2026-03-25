@@ -12,7 +12,7 @@
     "next": "15.2.6",
     "react": "^18",
     "react-dom": "^18",
-    "genlayer-js": "latest",
+    "genlayer-js": "latest"
   },
   "devDependencies": {
     "@types/node": "^20",
