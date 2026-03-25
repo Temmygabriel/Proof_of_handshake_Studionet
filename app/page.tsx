@@ -72,26 +72,34 @@ function makeClient() {
 }
 
 async function writeContract(fn: string, args: (string | number | boolean | bigint)[]): Promise<boolean> {
-  try {
-    const { client } = makeClient();
-    const hash = await client.writeContract({
-      address: CONTRACT_ADDRESS as `0x${string}`,
-      functionName: fn,
-      args,
-      value: BigInt(0),
-      leaderOnly: false,
-    } as any);
-    await client.waitForTransactionReceipt({
-      hash,
-      status: TransactionStatus.ACCEPTED,
-      retries: 60,
-      interval: 3000,
-    });
-    return true;
-  } catch (err: any) {
-    console.error(`writeContract ${fn} failed:`, err?.message);
-    return false;
+  const MAX_ATTEMPTS = 3;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const { client } = makeClient();
+      console.log(`writeContract attempt ${attempt}/${MAX_ATTEMPTS}: ${fn}`);
+      const hash = await client.writeContract({
+        address: CONTRACT_ADDRESS as `0x${string}`,
+        functionName: fn,
+        args,
+        leaderOnly: false,
+      } as any);
+      await client.waitForTransactionReceipt({
+        hash,
+        status: TransactionStatus.ACCEPTED,
+        retries: 100,
+        interval: 4000,
+      });
+      return true;
+    } catch (err: any) {
+      console.error(`writeContract ${fn} attempt ${attempt} failed:`, err?.message);
+      if (attempt < MAX_ATTEMPTS) {
+        await new Promise((r) => setTimeout(r, attempt * 4000));
+        continue;
+      }
+      return false;
+    }
   }
+  return false;
 }
 
 async function readCase(caseId: number): Promise<CaseState | null> {
