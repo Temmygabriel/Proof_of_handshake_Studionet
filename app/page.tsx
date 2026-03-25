@@ -335,11 +335,11 @@ export default function Home() {
   };
 
   const copyCaseId = () => {
-    if (caseId) {
+    if (caseId) { 
       navigator.clipboard.writeText(String(caseId));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } // This was the missing bracket!
+      setCopied(true); 
+      setTimeout(() => setCopied(false), 2000); 
+    }
   };
 
   const copyVerdictLink = () => {
@@ -354,7 +354,6 @@ export default function Home() {
   const otherLabel = myRole === "host" ? "Guest" : "Host";
   const myTagClass = myRole === "host" ? "poh-host-tag" : "poh-guest-tag";
   const myIcon = myRole === "host" ? "🏠" : "👤";
-  const knownRole = !!myRole;
 
   return (
     <main className="poh-main">
