@@ -356,627 +356,376 @@ export default function Home() {
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-
+        body { margin: 0; padding: 0; overflow-x: hidden; background: var(--ink1); color: var(--text1); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         :root {
-          --ink0: #0a0a0a;
-          --ink1: #111111;
-          --ink2: #1a1a1a;
-          --ink3: #242424;
-          --ink4: #2e2e2e;
-          --ink5: #3a3a3a;
-          --muted1: #888;
-          --muted2: #aaa;
-          --text: #f0ece0;
-          --text2: #c8c4b4;
-          --red: #c0392b;
-          --red2: #e74c3c;
-          --gold: #d4a843;
-          --gold2: #f0c060;
-          --green: #27ae60;
-          --green2: #2ecc71;
-          --blue: #2980b9;
-          --blue2: #3498db;
-          --orange: #e67e22;
-          --orange2: #f39c12;
-          --r: 10px;
-          --r2: 16px;
+          --ink1: #0d0d0e; --ink2: #17181a; --ink3: #202123; --ink4: #2a2b2f;
+          --text1: #f5f0e8; --text2: #d1c9b8; --muted1: #a5a09a; --muted2: #7a7670;
+          --red1: #c0392b; --red2: #e74c3c; --gold1: #d4a843; --gold2: #f1c057;
+          --green1: #27ae60; --green2: #2ecc71;
+          --r: 16px;
         }
-
-        body { background: var(--ink0); color: var(--text); font-family: 'Georgia', serif; }
-
-        .poh-main { min-height: 100vh; background: var(--ink0); }
-
-        /* NAV */
-        .poh-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--ink4); padding: 0 1.5rem; height: 56px; display: flex; align-items: center; }
-        .poh-nav-inner { max-width: 860px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-        .poh-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .poh-logo-name { font-family: 'Georgia', serif; font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
-        .poh-nav-right { display: flex; align-items: center; gap: 8px; }
-
-        /* BUTTONS */
-        .poh-btn-red { background: var(--red); color: white; border: none; border-radius: var(--r); padding: 0.55rem 1.2rem; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+        @media (prefers-color-scheme: light) {
+          :root {
+            --ink1: #fafafa; --ink2: #f2f2f2; --ink3: #e5e5e5; --ink4: #d4d4d4;
+            --text1: #1a1a1a; --text2: #404040; --muted1: #666666; --muted2: #8f8f8f;
+          }
+        }
+        .poh-main { min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+        .poh-hero { background: linear-gradient(180deg, var(--ink2) 0%, var(--ink1) 100%); padding: 6rem 1.5rem 4rem 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; text-align: center; border-bottom: 1px solid var(--ink3); }
+        .poh-hero-inner { max-width: 540px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .poh-hero-logo { display: flex; align-items: center; gap: 0.75rem; }
+        .poh-logo-text { font-size: 1.4rem; font-weight: 800; color: var(--text1); letter-spacing: -0.03em; }
+        .poh-tagline { font-size: 0.85rem; color: var(--muted1); line-height: 1.65; letter-spacing: 0.03em; text-transform: uppercase; }
+        .poh-hero-title { font-size: 2.5rem; font-weight: 800; line-height: 1.15; color: var(--text1); letter-spacing: -0.05em; }
+        .poh-hero-desc { font-size: 1rem; line-height: 1.65; color: var(--muted1); max-width: 480px; }
+        .poh-actions { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; max-width: 320px; }
+        .poh-btn { appearance: none; border: none; border-radius: var(--r); font-size: 0.9rem; font-weight: 600; padding: 0.85rem 1.5rem; cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1); font-family: inherit; letter-spacing: 0.02em; text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; white-space: nowrap; }
+        .poh-btn-red { background: var(--red1); color: #fff; }
         .poh-btn-red:hover { background: var(--red2); transform: translateY(-1px); }
-        .poh-btn-red:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .poh-btn-outline { background: transparent; color: var(--text2); border: 1px solid var(--ink5); border-radius: var(--r); padding: 0.55rem 1.2rem; font-size: 0.88rem; cursor: pointer; transition: all 0.15s; font-family: inherit; }
-        .poh-btn-outline:hover { border-color: var(--muted1); color: var(--text); }
-        .poh-btn-ghost { background: transparent; border: none; color: var(--muted1); font-size: 0.85rem; cursor: pointer; padding: 0.4rem 0.6rem; font-family: inherit; transition: color 0.15s; }
-        .poh-btn-ghost:hover { color: var(--text); }
-        .poh-btn-full { width: 100%; display: block; text-align: center; }
-        .poh-btn-gold { background: var(--gold); color: var(--ink0); border: none; border-radius: var(--r); padding: 0.65rem 1.4rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+        .poh-btn-outline { background: transparent; color: var(--text2); border: 1px solid var(--ink4); }
+        .poh-btn-outline:hover { background: var(--ink2); border-color: var(--muted2); }
+        .poh-btn-gold { background: var(--gold1); color: var(--ink1); }
         .poh-btn-gold:hover { background: var(--gold2); transform: translateY(-1px); }
-        .poh-btn-green { background: var(--green); color: white; border: none; border-radius: var(--r); padding: 0.65rem 1.4rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+        .poh-btn-green { background: var(--green1); color: #fff; }
         .poh-btn-green:hover { background: var(--green2); transform: translateY(-1px); }
-
-        /* OVERLAY */
-        .poh-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; display: flex; align-items: center; justify-content: center; }
-        .poh-overlay-box { background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r2); padding: 2.5rem; text-align: center; max-width: 360px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .poh-seal-spin { animation: spin 3s linear infinite; display: inline-block; margin-bottom: 1.25rem; }
-        .poh-overlay-msg { font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.6; }
-        .poh-overlay-sub { font-size: 0.8rem; color: var(--muted1); }
-
-        /* CONTENT */
-        .poh-content { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-
-        /* HOME */
-        .poh-home {}
-        .poh-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3rem; padding-top: 2rem; }
-        @media (max-width: 640px) { .poh-hero { grid-template-columns: 1fr; } .poh-hero-right { display: none; } }
-        .poh-stamp { display: inline-flex; align-items: center; gap: 8px; background: var(--ink2); border: 1px solid var(--ink4); border-radius: 999px; padding: 0.3rem 0.9rem; font-size: 0.75rem; color: var(--muted2); margin-bottom: 1.25rem; font-family: monospace; }
-        .poh-stamp-dot { width: 6px; height: 6px; background: var(--green2); border-radius: 50%; }
-        .poh-h1 { font-family: 'Georgia', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; line-height: 1.2; color: white; margin-bottom: 1.25rem; }
-        .poh-red { color: var(--red2); }
-        .poh-hero-p { color: var(--muted2); line-height: 1.75; margin-bottom: 1.75rem; font-size: 0.95rem; }
-        .poh-hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-        .poh-seal-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-        .poh-seal-ring-svg { position: absolute; width: 260px; height: 260px; opacity: 0.6; }
-        .poh-seal-center { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .poh-seal-label { font-size: 0.8rem; color: var(--muted1); font-family: monospace; }
-        .poh-seal-status { font-size: 0.72rem; color: var(--green2); font-family: monospace; }
-
-        /* STATS */
-        .poh-stats { display: flex; align-items: center; justify-content: space-between; background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r2); padding: 1.5rem 2rem; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
-        .poh-stat { text-align: center; }
-        .poh-stat-num { font-size: 1.6rem; font-weight: 700; color: white; font-family: 'Georgia', serif; }
-        .poh-stat-label { font-size: 0.72rem; color: var(--muted1); margin-top: 2px; }
-        .poh-stat-div { width: 1px; height: 40px; background: var(--ink5); }
-
-        /* FLOW */
-        .poh-flow { margin-bottom: 2.5rem; }
-        .poh-section-label { font-size: 0.72rem; color: var(--muted1); text-transform: uppercase; letter-spacing: 0.12em; font-family: monospace; margin-bottom: 1rem; }
-        .poh-flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-        .poh-flow-step { background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r); padding: 1.25rem; }
-        .poh-flow-num { font-size: 0.72rem; color: var(--red); font-family: monospace; margin-bottom: 0.5rem; font-weight: 700; }
-        .poh-flow-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
-        .poh-flow-title { font-size: 0.88rem; font-weight: 700; color: white; margin-bottom: 0.4rem; }
-        .poh-flow-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.55; }
-
-        /* APPEALS FEATURE BANNER */
-        .poh-appeals-banner { background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(192,57,43,0.08)); border: 1px solid rgba(212,168,67,0.25); border-radius: var(--r2); padding: 1.25rem 1.5rem; margin-bottom: 2.5rem; display: flex; gap: 1rem; align-items: flex-start; }
-        .poh-appeals-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
-        .poh-appeals-title { font-size: 0.88rem; font-weight: 700; color: var(--gold2); margin-bottom: 0.3rem; }
-        .poh-appeals-desc { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
-
-        /* SAMPLE */
-        .poh-sample { margin-bottom: 2rem; }
-        .poh-verdict-box { background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r2); overflow: hidden; }
-        .poh-verdict-hdr { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--ink4); flex-wrap: wrap; gap: 8px; }
-        .poh-verdict-id { font-size: 0.78rem; color: var(--muted1); font-family: monospace; }
-        .poh-win-badge { background: rgba(39,174,96,0.12); border: 1px solid rgba(39,174,96,0.3); color: var(--green2); border-radius: 999px; padding: 0.2rem 0.7rem; font-size: 0.72rem; font-weight: 700; font-family: monospace; }
-        .poh-verdict-body { padding: 1.25rem; }
-        .poh-verdict-quote { font-style: italic; color: var(--text2); line-height: 1.75; font-size: 0.88rem; margin-bottom: 1rem; }
-
-        /* LOAD BOX */
-        .poh-load-box { background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r2); padding: 1.5rem; }
-        .poh-load-label { font-size: 0.82rem; color: var(--muted2); margin-bottom: 0.75rem; }
-        .poh-load-row { display: flex; gap: 8px; }
-
-        /* CHIPS */
-        .poh-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-        .poh-chip { background: var(--ink3); border: 1px solid var(--ink5); color: var(--muted2); border-radius: 999px; padding: 0.2rem 0.65rem; font-size: 0.72rem; font-family: monospace; }
-        .poh-chip-agree { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); color: var(--green2); border-radius: 999px; padding: 0.2rem 0.65rem; font-size: 0.72rem; font-family: monospace; }
-
-        /* FORM WRAP */
-        .poh-form-wrap { max-width: 600px; margin: 0 auto; }
-        .poh-form-hdr { margin-bottom: 1.5rem; }
-        .poh-step-tag { font-size: 0.72rem; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; font-family: monospace; font-weight: 700; margin-bottom: 0.5rem; }
-        .poh-form-title { font-size: 1.75rem; font-weight: 700; color: white; margin-bottom: 0.4rem; line-height: 1.2; }
-        .poh-form-sub { color: var(--muted2); font-size: 0.9rem; line-height: 1.6; }
-        .poh-id-badge { background: var(--ink3); border: 1px solid var(--ink5); border-radius: 4px; padding: 0.1rem 0.4rem; font-family: monospace; font-size: 0.85em; color: var(--gold2); }
-
-        /* CARD */
-        .poh-card { background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r2); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
-
-        /* FIELDS */
-        .poh-field { display: flex; flex-direction: column; gap: 0.4rem; }
-        .poh-field label { font-size: 0.8rem; color: var(--muted2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-family: monospace; }
-        .poh-input { background: var(--ink1); border: 1px solid var(--ink5); border-radius: var(--r); padding: 0.7rem 0.9rem; color: var(--text); font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color 0.15s; width: 100%; }
-        .poh-input:focus { border-color: var(--red); }
-        .poh-textarea { background: var(--ink1); border: 1px solid var(--ink5); border-radius: var(--r); padding: 0.7rem 0.9rem; color: var(--text); font-size: 0.88rem; font-family: inherit; outline: none; resize: vertical; transition: border-color 0.15s; width: 100%; line-height: 1.65; }
-        .poh-textarea:focus { border-color: var(--red); }
-        .poh-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        @media (max-width: 500px) { .poh-field-row { grid-template-columns: 1fr; } }
-        .poh-amount-row { display: flex; gap: 8px; }
-        .poh-currency-select { background: var(--ink1); border: 1px solid var(--ink5); border-radius: var(--r); padding: 0.7rem 0.6rem; color: var(--text); font-family: monospace; font-size: 0.88rem; outline: none; flex-shrink: 0; }
-        .poh-amount-input { flex: 1; }
-
-        /* PARTY TAGS */
-        .poh-party-tag { display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; padding: 0.35rem 0.75rem; font-size: 0.78rem; font-weight: 700; font-family: monospace; margin-bottom: 0.25rem; }
-        .poh-host-tag { background: rgba(192,57,43,0.12); border: 1px solid rgba(192,57,43,0.3); color: #f5a0a0; }
-        .poh-guest-tag { background: rgba(41,128,185,0.12); border: 1px solid rgba(41,128,185,0.3); color: #90c8f0; }
-
-        /* ERROR */
-        .poh-error { color: #f5a0a0; font-size: 0.82rem; background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.25); border-radius: 6px; padding: 0.5rem 0.75rem; }
-
-        /* ROLE SELECT */
-        .poh-role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
-        @media (max-width: 480px) { .poh-role-grid { grid-template-columns: 1fr; } }
-        .poh-role-card { background: var(--ink2); border: 2px solid var(--ink4); border-radius: var(--r2); padding: 1.25rem; cursor: pointer; transition: all 0.15s; text-align: left; display: flex; flex-direction: column; gap: 4px; }
-        .poh-role-card:hover { border-color: var(--ink5); }
-        .poh-role-active-host { border-color: var(--red) !important; background: rgba(192,57,43,0.07) !important; }
-        .poh-role-active-guest { border-color: var(--blue2) !important; background: rgba(41,128,185,0.07) !important; }
-        .poh-role-icon { font-size: 1.6rem; margin-bottom: 4px; }
-        .poh-role-title { font-size: 1rem; font-weight: 700; color: white; }
-        .poh-role-desc { font-size: 0.78rem; color: var(--muted2); }
-        .poh-role-check { font-size: 0.72rem; color: var(--green2); font-family: monospace; margin-top: 4px; }
-        .poh-two-paths { display: flex; flex-direction: column; gap: 0; background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r2); overflow: hidden; }
-        .poh-path-card { padding: 1.25rem 1.5rem; }
-        .poh-path-divider { display: flex; align-items: center; justify-content: center; padding: 0.5rem 0; font-size: 0.75rem; color: var(--muted1); border-top: 1px solid var(--ink4); border-bottom: 1px solid var(--ink4); background: var(--ink1); }
-        .poh-path-label { font-size: 0.72rem; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; font-family: monospace; font-weight: 700; margin-bottom: 0.4rem; }
-        .poh-path-desc { font-size: 0.82rem; color: var(--muted2); margin-bottom: 0.75rem; line-height: 1.55; }
-
-        /* STATUS */
-        .poh-share-id-block { background: var(--ink1); border: 1px solid var(--ink4); border-radius: var(--r); padding: 1rem; }
-        .poh-share-label { font-size: 0.78rem; color: var(--muted2); margin-bottom: 0.5rem; font-family: monospace; }
-        .poh-share-id-row { display: flex; align-items: center; gap: 10px; }
-        .poh-share-id-num { font-size: 2rem; font-weight: 700; color: white; font-family: 'Georgia', serif; }
-        .poh-instructions-block { background: var(--ink3); border-radius: var(--r); padding: 0.9rem 1rem; margin-top: 0.75rem; }
-        .poh-instructions-label { font-size: 0.78rem; color: var(--muted2); margin-bottom: 0.5rem; font-family: monospace; }
-        .poh-instructions-list { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px; }
-        .poh-instructions-list li { font-size: 0.82rem; color: var(--text2); line-height: 1.55; }
-        .poh-share-note { display: flex; align-items: flex-start; gap: 8px; font-size: 0.8rem; color: var(--muted2); margin-top: 0.5rem; }
-        .poh-share-note-icon { flex-shrink: 0; }
-        .poh-status-check-block { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 8px; }
-        .poh-status-check-label { font-size: 0.78rem; color: var(--muted2); font-family: monospace; }
-        .poh-check-result { display: flex; align-items: flex-start; gap: 8px; padding: 0.65rem 0.9rem; border-radius: 8px; font-size: 0.82rem; line-height: 1.55; }
-        .poh-check-waiting { background: rgba(212,168,67,0.08); border: 1px solid rgba(212,168,67,0.2); color: var(--gold2); }
-        .poh-check-ready { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); color: var(--green2); }
-        .poh-ready-banner { display: flex; gap: 12px; align-items: flex-start; background: rgba(39,174,96,0.06); border: 1px solid rgba(39,174,96,0.2); border-radius: var(--r); padding: 1rem; }
-        .poh-ready-icon { font-size: 1.2rem; flex-shrink: 0; }
-        .poh-ready-title { font-size: 0.9rem; font-weight: 700; color: var(--green2); margin-bottom: 0.2rem; }
-        .poh-ready-sub { font-size: 0.8rem; color: var(--muted2); }
-        .poh-validators-block {}
-        .poh-validators-label { font-size: 0.78rem; color: var(--muted2); margin-bottom: 0.5rem; font-family: monospace; }
-        .poh-pending-note { font-size: 0.78rem; color: var(--muted1); margin-top: 0.5rem; line-height: 1.55; }
-        .poh-btn-gavel { font-size: 1rem; padding: 0.75rem 1.5rem; }
-
-        /* DISPUTE CONTEXT */
-        .poh-dispute-context { background: var(--ink1); border: 1px solid var(--ink4); border-radius: var(--r); padding: 1rem; }
-        .poh-context-label { font-size: 0.72rem; color: var(--muted1); font-family: monospace; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
-        .poh-details-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.4rem 1rem; align-items: start; }
-        .poh-dl { font-size: 0.75rem; color: var(--muted1); font-family: monospace; padding-top: 2px; white-space: nowrap; }
-        .poh-dv { font-size: 0.85rem; color: var(--text2); line-height: 1.5; }
-        .poh-resolved { color: var(--green2); font-family: monospace; font-size: 0.8rem; }
-
-        /* ── VERDICT SCREEN ── */
-        .poh-verdict-screen { max-width: 640px; margin: 0 auto; }
-        .poh-verdict-banner { border-radius: var(--r2); padding: 2rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
-        .poh-guest-wins { background: linear-gradient(135deg, rgba(41,128,185,0.15), rgba(41,128,185,0.05)); border: 1px solid rgba(41,128,185,0.3); }
-        .poh-host-wins { background: linear-gradient(135deg, rgba(192,57,43,0.15), rgba(192,57,43,0.05)); border: 1px solid rgba(192,57,43,0.3); }
-        .poh-verdict-seal { margin-bottom: 1rem; }
-        .poh-verdict-winner { font-size: 2rem; font-weight: 700; color: white; margin-bottom: 0.5rem; font-family: 'Georgia', serif; }
-        .poh-verdict-deposit { font-size: 0.9rem; color: var(--muted2); line-height: 1.6; max-width: 400px; margin: 0 auto; }
-        .poh-verdict-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem; }
-        .poh-vcard { background: var(--ink2); border: 1px solid var(--ink4); border-radius: var(--r2); padding: 1.25rem; }
-        .poh-vcard h3 { font-size: 0.88rem; color: var(--muted2); font-family: monospace; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; font-weight: 600; }
-        .poh-vcard p { font-size: 0.9rem; color: var(--text2); line-height: 1.75; margin: 0; }
-        .poh-verdict-quote-sm { font-style: italic; }
-        .poh-consensus-card {}
-        .poh-contract-ref { margin-top: 0.75rem; font-size: 0.72rem; color: var(--muted1); font-family: monospace; }
-        .poh-mono { color: var(--gold2); }
-        .poh-share-verdict-card {}
-
-        /* ── ROUND 1 VERDICT (appeals enabled) ── */
-        .poh-round-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.25); border-radius: 999px; padding: 0.25rem 0.75rem; font-size: 0.72rem; color: var(--gold2); font-family: monospace; font-weight: 700; margin-bottom: 1rem; }
-        .poh-appeal-actions { display: flex; flex-direction: column; gap: 10px; }
-        .poh-appeal-divider { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; color: var(--muted1); }
-        .poh-appeal-divider::before, .poh-appeal-divider::after { content: ""; flex: 1; height: 1px; background: var(--ink4); }
-        .poh-appeal-note { font-size: 0.78rem; color: var(--muted1); text-align: center; line-height: 1.55; }
-
-        /* ── APPEAL SCREEN ── */
-        .poh-prev-verdict-box { background: var(--ink1); border: 1px solid var(--ink4); border-radius: var(--r); padding: 1rem; }
-        .poh-prev-verdict-label { font-size: 0.72rem; color: var(--muted1); font-family: monospace; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-        .poh-prev-winner { font-size: 0.88rem; font-weight: 700; color: white; margin-bottom: 0.35rem; }
-        .poh-prev-ruling { font-size: 0.82rem; color: var(--text2); line-height: 1.65; margin-bottom: 0.35rem; font-style: italic; }
-        .poh-prev-reasoning { font-size: 0.8rem; color: var(--muted2); line-height: 1.65; }
-
-        /* ── APPEAL PENDING ── */
-        .poh-appeal-pending-box { background: rgba(212,168,67,0.06); border: 1px solid rgba(212,168,67,0.2); border-radius: var(--r2); padding: 1.5rem; text-align: center; }
-        .poh-appeal-pending-icon { font-size: 2rem; margin-bottom: 0.75rem; }
-        .poh-appeal-pending-title { font-size: 1.1rem; font-weight: 700; color: var(--gold2); margin-bottom: 0.4rem; }
-        .poh-appeal-pending-sub { font-size: 0.85rem; color: var(--muted2); line-height: 1.65; margin-bottom: 1.25rem; }
-        .poh-appeal-party-tag { display: inline-block; background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.25); color: var(--gold2); border-radius: 999px; padding: 0.2rem 0.7rem; font-size: 0.72rem; font-family: monospace; font-weight: 700; margin-bottom: 0.5rem; }
-        .poh-appeal-reason-preview { font-size: 0.82rem; color: var(--text2); font-style: italic; line-height: 1.6; }
-
-        /* ── FINAL VERDICT ── */
-        .poh-final-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); border-radius: 999px; padding: 0.25rem 0.8rem; font-size: 0.72rem; color: var(--red2); font-family: monospace; font-weight: 700; margin-bottom: 1rem; }
-        .poh-appeal-outcome-card { border-radius: var(--r2); padding: 1.25rem; }
-        .poh-upheld { background: rgba(39,174,96,0.06); border: 1px solid rgba(39,174,96,0.2); }
-        .poh-overturned { background: rgba(212,168,67,0.06); border: 1px solid rgba(212,168,67,0.2); }
-        .poh-outcome-label { font-size: 0.72rem; color: var(--muted1); font-family: monospace; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-        .poh-outcome-result-upheld { font-size: 0.9rem; font-weight: 700; color: var(--green2); margin-bottom: 0.4rem; }
-        .poh-outcome-result-overturned { font-size: 0.9rem; font-weight: 700; color: var(--gold2); margin-bottom: 0.4rem; }
-        .poh-outcome-address { font-size: 0.85rem; color: var(--text2); line-height: 1.65; font-style: italic; }
-
-        /* FOOTER */
-        .poh-footer { border-top: 1px solid var(--ink4); padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 860px; margin-left: auto; margin-right: auto; }
-        .poh-footer-logo { display: flex; align-items: center; gap: 8px; }
-        .poh-footer-name { font-size: 0.82rem; color: var(--muted1); font-family: monospace; }
-        .poh-footer-right { font-size: 0.75rem; color: var(--ink5); font-family: monospace; }
+        .poh-btn-ghost { background: transparent; color: var(--muted1); }
+        .poh-btn-ghost:hover { background: var(--ink2); color: var(--text2); }
+        .poh-btn-full { width: 100%; }
+        .poh-btn-gavel { box-shadow: 0 0 24px rgba(212,168,67,0.25); }
+        .poh-divider { margin: 1.5rem 0; height: 1px; background: var(--ink3); }
+        .poh-load-case-wrap { display: flex; align-items: center; gap: 0.75rem; }
+        .poh-load-case-input { flex: 1; background: var(--ink2); border: 1px solid var(--ink3); border-radius: var(--r); padding: 0.75rem 1rem; font-size: 0.9rem; color: var(--text1); font-family: inherit; }
+        .poh-load-case-input::placeholder { color: var(--muted2); }
+        .poh-load-case-input:focus { outline: none; border-color: var(--red1); }
+        .poh-form-wrap { flex: 1; padding: 3rem 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+        .poh-form-hdr { max-width: 540px; width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+        .poh-step-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted1); background: var(--ink2); border: 1px solid var(--ink3); border-radius: 999px; padding: 0.3rem 0.85rem; display: inline-flex; }
+        .poh-form-title { font-size: 1.75rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; color: var(--text1); }
+        .poh-form-sub { font-size: 0.9rem; color: var(--muted1); line-height: 1.65; }
+        .poh-card { background: var(--ink2); border: 1px solid var(--ink3); border-radius: var(--r); padding: 2rem; max-width: 540px; width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+        .poh-field { display: flex; flex-direction: column; gap: 0.5rem; }
+        .poh-field label { font-size: 0.82rem; font-weight: 600; color: var(--text2); }
+        .poh-input { background: var(--ink1); border: 1px solid var(--ink3); border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.9rem; color: var(--text1); font-family: inherit; }
+        .poh-input::placeholder { color: var(--muted2); }
+        .poh-input:focus { outline: none; border-color: var(--red1); }
+        .poh-textarea { background: var(--ink1); border: 1px solid var(--ink3); border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.9rem; color: var(--text1); font-family: inherit; resize: vertical; line-height: 1.65; }
+        .poh-textarea::placeholder { color: var(--muted2); }
+        .poh-textarea:focus { outline: none; border-color: var(--red1); }
+        .poh-select { background: var(--ink1); border: 1px solid var(--ink3); border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.9rem; color: var(--text1); font-family: inherit; cursor: pointer; }
+        .poh-select:focus { outline: none; border-color: var(--red1); }
+        .poh-error { font-size: 0.82rem; color: var(--red2); line-height: 1.65; }
+        .poh-success { font-size: 0.82rem; color: var(--green2); line-height: 1.65; }
+        .poh-id-display { background: var(--ink1); border: 1px solid var(--ink3); border-radius: var(--r); padding: 1rem; font-family: monospace; font-size: 1rem; color: var(--text1); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .poh-id-number { font-size: 1.25rem; font-weight: 700; color: var(--red1); }
+        .poh-copy-btn { appearance: none; border: none; background: var(--ink3); color: var(--text2); border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+        .poh-copy-btn:hover { background: var(--ink4); }
+        .poh-party-tag { font-size: 0.85rem; font-weight: 700; padding: 0.6rem 1.25rem; border-radius: 999px; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .poh-host-tag { background: rgba(192,57,43,0.1); color: var(--red2); border: 1px solid rgba(192,57,43,0.3); }
+        .poh-guest-tag { background: rgba(39,174,96,0.1); color: var(--green2); border: 1px solid rgba(39,174,96,0.3); }
+        .poh-role-select-wrap { display: flex; gap: 1rem; width: 100%; }
+        .poh-role-card { flex: 1; background: var(--ink2); border: 2px solid var(--ink3); border-radius: var(--r); padding: 1.5rem; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; text-align: center; }
+        .poh-role-card:hover { border-color: var(--red1); }
+        .poh-role-icon { font-size: 2rem; }
+        .poh-role-label { font-size: 1rem; font-weight: 700; color: var(--text1); }
+        .poh-role-desc { font-size: 0.8rem; color: var(--muted1); line-height: 1.65; }
+        .poh-status-screen { flex: 1; padding: 3rem 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+        .poh-status-card { background: var(--ink2); border: 1px solid var(--ink3); border-radius: var(--r); padding: 2rem; max-width: 540px; width: 100%; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
+        .poh-status-icon { font-size: 3rem; }
+        .poh-status-title { font-size: 1.5rem; font-weight: 800; color: var(--text1); }
+        .poh-status-desc { font-size: 0.9rem; color: var(--muted1); line-height: 1.65; }
+        .poh-verdict-screen { flex: 1; padding: 3rem 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+        .poh-verdict-banner { background: linear-gradient(135deg, var(--ink2) 0%, var(--ink1) 100%); border: 1px solid var(--ink3); border-radius: var(--r); padding: 3rem 2rem; max-width: 740px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; position: relative; overflow: hidden; }
+        .poh-verdict-banner::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--red1), var(--gold1), var(--red1)); }
+        .poh-final-badge { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold1); background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.25); border-radius: 999px; padding: 0.4rem 1rem; }
+        .poh-verdict-seal { margin: 1rem 0; }
+        .poh-verdict-winner { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; }
+        .poh-guest-wins .poh-verdict-winner { color: var(--green1); }
+        .poh-host-wins .poh-verdict-winner { color: var(--red1); }
+        .poh-verdict-deposit { font-size: 1rem; color: var(--muted1); }
+        .poh-verdict-cards { max-width: 740px; width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+        .poh-vcard { background: var(--ink2); border: 1px solid var(--ink3); border-radius: var(--r); padding: 1.5rem; }
+        .poh-vcard h3 { font-size: 1rem; font-weight: 700; color: var(--text1); margin-bottom: 0.75rem; }
+        .poh-vcard p { font-size: 0.9rem; color: var(--muted1); line-height: 1.65; }
+        .poh-verdict-quote-sm { font-style: italic; color: var(--text2); }
+        .poh-details-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem 1.5rem; font-size: 0.85rem; }
+        .poh-dl { color: var(--muted1); }
+        .poh-dv { color: var(--text2); font-weight: 600; }
+        .poh-id-badge { font-family: monospace; color: var(--red1); font-weight: 700; }
+        .poh-resolved { color: var(--green1); font-weight: 700; }
+        .poh-consensus-card { background: linear-gradient(135deg, rgba(212,168,67,0.04), rgba(192,57,43,0.04)); border-color: rgba(212,168,67,0.15); }
+        .poh-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .poh-chip { font-size: 0.7rem; font-weight: 600; background: var(--ink3); color: var(--muted1); border-radius: 999px; padding: 0.35rem 0.75rem; }
+        .poh-chip-agree { font-size: 0.7rem; font-weight: 600; background: rgba(39,174,96,0.1); color: var(--green1); border: 1px solid rgba(39,174,96,0.2); border-radius: 999px; padding: 0.35rem 0.75rem; }
+        .poh-contract-ref { margin-top: 1rem; font-size: 0.75rem; color: var(--muted2); font-family: monospace; }
+        .poh-mono { font-family: monospace; color: var(--text2); }
+        .poh-share-verdict-card { background: rgba(212,168,67,0.04); border-color: rgba(212,168,67,0.15); }
+        .poh-prev-verdict-box { background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.2); border-radius: var(--r); padding: 1rem; }
+        .poh-prev-verdict-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted1); margin-bottom: 0.5rem; }
+        .poh-prev-winner { font-size: 0.9rem; font-weight: 700; color: var(--red2); margin-bottom: 0.5rem; }
+        .poh-prev-ruling { font-size: 0.82rem; font-style: italic; color: var(--text2); line-height: 1.65; margin-bottom: 0.5rem; }
+        .poh-prev-reasoning { font-size: 0.75rem; color: var(--muted1); line-height: 1.65; }
+        .poh-appeal-pending-box { background: rgba(212,168,67,0.06); border: 1px solid rgba(212,168,67,0.2); border-radius: var(--r); padding: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; text-align: center; }
+        .poh-appeal-pending-icon { font-size: 2.5rem; }
+        .poh-appeal-pending-title { font-size: 1.1rem; font-weight: 700; color: var(--gold1); }
+        .poh-appeal-pending-sub { font-size: 0.85rem; color: var(--muted1); line-height: 1.65; }
+        .poh-appeal-party-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold1); background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.25); border-radius: 999px; padding: 0.35rem 0.85rem; }
+        .poh-appeal-reason-preview { font-size: 0.82rem; font-style: italic; color: var(--text2); line-height: 1.65; margin-top: 0.5rem; }
+        .poh-validators-block { background: var(--ink1); border: 1px solid var(--ink3); border-radius: var(--r); padding: 1rem; }
+        .poh-validators-label { font-size: 0.82rem; font-weight: 600; color: var(--text2); margin-bottom: 0.75rem; }
+        .poh-pending-note { font-size: 0.75rem; color: var(--muted2); line-height: 1.65; margin-top: 0.75rem; }
+        .poh-appeal-outcome-card { border-width: 2px; }
+        .poh-overturned { background: rgba(212,168,67,0.06); border-color: rgba(212,168,67,0.3); }
+        .poh-upheld { background: rgba(39,174,96,0.06); border-color: rgba(39,174,96,0.3); }
+        .poh-outcome-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted1); margin-bottom: 0.5rem; }
+        .poh-outcome-result-overturned { font-size: 1rem; font-weight: 800; color: var(--gold1); margin-bottom: 0.75rem; }
+        .poh-outcome-result-upheld { font-size: 1rem; font-weight: 800; color: var(--green1); margin-bottom: 0.75rem; }
+        .poh-outcome-address { font-size: 0.82rem; color: var(--text2); line-height: 1.65; }
+        .poh-loading-overlay { position: fixed; inset: 0; background: rgba(13,13,14,0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .poh-spinner-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; max-width: 320px; padding: 2rem; }
+        .poh-spinner { width: 48px; height: 48px; border: 4px solid var(--ink3); border-top-color: var(--red1); border-radius: 50%; animation: poh-spin 0.8s linear infinite; }
+        @keyframes poh-spin { to { transform: rotate(360deg); } }
+        .poh-loading-msg { font-size: 0.9rem; color: var(--muted1); line-height: 1.65; }
+        .poh-footer { background: var(--ink2); border-top: 1px solid var(--ink3); padding: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+        .poh-footer-logo { display: flex; align-items: center; gap: 0.5rem; }
+        .poh-footer-name { font-size: 0.85rem; font-weight: 700; color: var(--text2); }
+        .poh-footer-right { font-size: 0.75rem; color: var(--muted2); }
+        .poh-appeal-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+        .poh-appeal-note { font-size: 0.85rem; color: var(--muted1); line-height: 1.65; text-align: center; }
+        .poh-appeal-divider { display: flex; align-items: center; gap: 1rem; margin: 0.5rem 0; }
+        .poh-appeal-divider::before, .poh-appeal-divider::after { content: ""; flex: 1; height: 1px; background: var(--ink3); }
+        .poh-appeal-divider span { font-size: 0.75rem; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.05em; }
+        @media (max-width: 640px) {
+          .poh-hero { padding: 4rem 1rem 3rem 1rem; }
+          .poh-hero-title { font-size: 2rem; }
+          .poh-form-wrap { padding: 2rem 1rem; }
+          .poh-card { padding: 1.5rem; }
+          .poh-verdict-banner { padding: 2rem 1.5rem; }
+          .poh-verdict-winner { font-size: 1.5rem; }
+          .poh-role-select-wrap { flex-direction: column; }
+        }
+        @media print {
+          .poh-hero, .poh-footer, .poh-btn, .poh-loading-overlay { display: none !important; }
+          .poh-verdict-screen { padding: 1rem; }
+        }
       `}</style>
 
-      <nav className="poh-nav">
-        <div className="poh-nav-inner">
-          <div className="poh-logo" onClick={reset}><Logo size={28} /><span className="poh-logo-name">Proof of Handshake</span></div>
-          <div className="poh-nav-right">
-            {screen !== "home" && <button className="poh-btn-ghost" onClick={reset}>← Home</button>}
-            {screen === "home" && <button className="poh-btn-red" onClick={() => setScreen("role_select")}>File a Dispute →</button>}
-          </div>
-        </div>
-      </nav>
-
       {loading && (
-        <div className="poh-overlay">
-          <div className="poh-overlay-box">
-            <div className="poh-seal-spin"><Logo size={52} /></div>
-            <p className="poh-overlay-msg">{loadingMsg}</p>
-            <p className="poh-overlay-sub">Do not close this tab</p>
+        <div className="poh-loading-overlay">
+          <div className="poh-spinner-wrap">
+            <div className="poh-spinner" />
+            <p className="poh-loading-msg">{loadingMsg}</p>
           </div>
         </div>
       )}
 
-      <div className="poh-content">
-
+      <div style={{flex:1}}>
         {/* ── HOME ── */}
         {screen === "home" && (
-          <div className="poh-home">
-            <section className="poh-hero">
-              <div className="poh-hero-left">
-                <div className="poh-stamp"><span className="poh-stamp-dot" /><span className="poh-stamp-text">Live · GenLayer Studio</span></div>
-                <h1 className="poh-h1">Your deposit.<br />Your rights.<br /><span className="poh-red">Proven onchain.</span></h1>
-                <p className="poh-hero-p">When your shortlet host refuses to return your caution fee, you deserve more than an argument. You deserve a verdict — transparent, reasoned, and stored permanently on the blockchain. With an appeals layer.</p>
-                <div className="poh-hero-btns">
-                  <button className="poh-btn-red" onClick={() => setScreen("role_select")}>File a New Dispute →</button>
-                  <button className="poh-btn-outline" onClick={() => setScreen("role_select")}>I Have a Case ID</button>
+          <>
+            <div className="poh-hero">
+              <div className="poh-hero-inner">
+                <div className="poh-hero-logo">
+                  <Logo size={48} />
+                  <div className="poh-logo-text">Proof of Handshake</div>
                 </div>
-              </div>
-              <div className="poh-hero-right">
-                <div className="poh-seal-wrap">
-                  <svg className="poh-seal-ring-svg" viewBox="0 0 260 260">
-                    <circle cx="130" cy="130" r="125" fill="none" stroke="#1e1e1e" strokeWidth="1" />
-                    <path id="topArc" d="M 20,130 A 110,110 0 0,1 240,130" fill="none" />
-                    <path id="botArc" d="M 240,130 A 110,110 0 0,1 20,130" fill="none" />
-                    <text fontFamily="monospace" fontSize="9" fill="#2a2a2a" letterSpacing="5"><textPath href="#topArc" startOffset="5%">PROOF · OF · HANDSHAKE · ONCHAIN ARBITRATION ·</textPath></text>
-                    <text fontFamily="monospace" fontSize="9" fill="#2a2a2a" letterSpacing="5"><textPath href="#botArc" startOffset="5%">POWERED · BY · GENLAYER · AI CONSENSUS ·</textPath></text>
-                  </svg>
-                  <div className="poh-seal-center"><Logo size={56} /><span className="poh-seal-label">Verdict sealed</span><span className="poh-seal-status">● Resolved</span></div>
-                </div>
-              </div>
-            </section>
-
-            <div className="poh-appeals-banner">
-              <div className="poh-appeals-icon">⚖️</div>
-              <div>
-                <div className="poh-appeals-title">Now with AI Appeals — A First on Any Blockchain</div>
-                <div className="poh-appeals-desc">If you disagree with the Round 1 verdict, file an appeal. A fresh panel of 5 AI validators re-reads the full case — and must explicitly address why they are upholding or overturning the original ruling. After Round 2, the verdict is locked permanently onchain. No more appeals.</div>
-              </div>
-            </div>
-
-            <div className="poh-stats">
-              {[["5","AI Validators"],["2","Max Appeal Rounds"],["~60s","Per Verdict"],["$0","Arbitration Fee"]].map(([n,l],i,a) => (
-                <div key={l} style={{display:"flex",alignItems:"center",gap:"2rem"}}>
-                  <div className="poh-stat"><div className="poh-stat-num">{n}</div><div className="poh-stat-label">{l}</div></div>
-                  {i < a.length-1 && <div className="poh-stat-div" />}
-                </div>
-              ))}
-            </div>
-
-            <div className="poh-flow">
-              <div className="poh-section-label">The process</div>
-              <div className="poh-flow-grid">
-                {[
-                  {n:"01",icon:"🎭",title:"Choose your role",desc:"Host or Guest — each party files from their own device, independently"},
-                  {n:"02",icon:"📋",title:"File your side",desc:"Enter property details and your evidence. A case ID is generated."},
-                  {n:"03",icon:"⚖️",title:"AI verdict — Round 1",desc:"5 validators read both sides and reach a majority ruling onchain"},
-                  {n:"04",icon:"🔁",title:"Appeal if needed",desc:"Disagree? File an appeal. Round 2 panel must address Round 1 reasoning."},
-                ].map(s => (
-                  <div key={s.n} className="poh-flow-step">
-                    <div className="poh-flow-num">{s.n} —</div>
-                    <div className="poh-flow-icon">{s.icon}</div>
-                    <div className="poh-flow-title">{s.title}</div>
-                    <div className="poh-flow-desc">{s.desc}</div>
+                <div className="poh-tagline">Onchain Justice · Powered by AI Consensus</div>
+                <h1 className="poh-hero-title">Rent Disputes Resolved in 60 Seconds</h1>
+                <p className="poh-hero-desc">
+                  Transparent, binding arbitration powered by 5 independent AI validators on GenLayer Studio. No lawyers. No waiting. Just results locked onchain forever.
+                </p>
+                <div className="poh-actions">
+                  <button className="poh-btn poh-btn-red poh-btn-full" onClick={()=>setScreen("role_select")}>
+                    File a New Dispute →
+                  </button>
+                  <div className="poh-divider" />
+                  <div className="poh-load-case-wrap">
+                    <input
+                      className="poh-load-case-input"
+                      placeholder="Enter Case ID"
+                      value={loadId}
+                      onChange={e=>setLoadId(e.target.value)}
+                      onKeyDown={e=>e.key==="Enter"&&handleHomeLoad()}
+                    />
+                    <button className="poh-btn poh-btn-outline" onClick={handleHomeLoad}>Load</button>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="poh-sample">
-              <div className="poh-section-label">Live verdict example</div>
-              <div className="poh-verdict-box">
-                <div className="poh-verdict-hdr">
-                  <span className="poh-verdict-id">Case #1 · 12 Adewale Street Lagos · 150,000 NGN</span>
-                  <span className="poh-win-badge">✓ GUEST WINS</span>
-                </div>
-                <div className="poh-verdict-body">
-                  <p className="poh-verdict-quote">&ldquo;The guest&apos;s move-in inspection report and messages prove the AC was faulty prior to check-in. The guest provided photographic proof of the apartment&apos;s cleanliness upon departure. Caution fee must be refunded.&rdquo;</p>
-                  <div className="poh-chips">{["GPT-5.1 ✓","Grok-4 ✓","Qwen3-235b ✓","Claude Sonnet ✓","Majority Agree ✓"].map(c=><span key={c} className="poh-chip-agree">{c}</span>)}</div>
                 </div>
               </div>
             </div>
-
-            <div className="poh-load-box">
-              <p className="poh-load-label">Have a case ID? Check status or load verdict →</p>
-              <div className="poh-load-row">
-                <input className="poh-input" placeholder="Enter case ID e.g. 3" value={loadId} onChange={e=>{setLoadId(e.target.value); setError("");}} />
-                <button className="poh-btn-red" onClick={handleHomeLoad}>Check →</button>
-              </div>
-              {error && <p className="poh-error" style={{marginTop:"0.5rem"}}>{error}</p>}
-            </div>
-          </div>
+          </>
         )}
 
         {/* ── ROLE SELECT ── */}
         {screen === "role_select" && (
           <div className="poh-form-wrap">
             <div className="poh-form-hdr">
-              <div className="poh-step-tag">Before we begin</div>
-              <h2 className="poh-form-title">Who are you?</h2>
-              <p className="poh-form-sub">Select your role, then choose your path below.</p>
+              <div className="poh-step-tag">Step 1 of 4 · Role</div>
+              <h2 className="poh-form-title">Select Your Role</h2>
+              <p className="poh-form-sub">Are you the property host or the guest filing this dispute?</p>
             </div>
-            <div className="poh-role-grid">
-              <button className={`poh-role-card poh-role-host ${myRole === "host" ? "poh-role-active-host" : ""}`} onClick={() => { setMyRole("host"); setError(""); }}>
-                <span className="poh-role-icon">🏠</span>
-                <span className="poh-role-title">I am the Host</span>
-                <span className="poh-role-desc">I own or manage the property</span>
-                {myRole === "host" && <span className="poh-role-check">✓ Selected</span>}
-              </button>
-              <button className={`poh-role-card poh-role-guest ${myRole === "guest" ? "poh-role-active-guest" : ""}`} onClick={() => { setMyRole("guest"); setError(""); }}>
-                <span className="poh-role-icon">👤</span>
-                <span className="poh-role-title">I am the Guest</span>
-                <span className="poh-role-desc">I stayed at the property</span>
-                {myRole === "guest" && <span className="poh-role-check">✓ Selected</span>}
-              </button>
-            </div>
-            {error && <p className="poh-error" style={{marginBottom:"1rem"}}>{error}</p>}
-            <div className="poh-two-paths">
-              <div className="poh-path-card">
-                <div className="poh-path-label">Starting the dispute</div>
-                <p className="poh-path-desc">The other party hasn&apos;t filed yet. You go first — a case ID will be created.</p>
-                <button className="poh-btn-red poh-btn-full" onClick={() => {
-                  if (!myRole) { setError("Please select your role first"); return; }
-                  setError(""); setScreen("create");
-                }}>Start New Dispute →</button>
-              </div>
-              <div className="poh-path-divider"><span>or</span></div>
-              <div className="poh-path-card">
-                <div className="poh-path-label">Responding to a dispute</div>
-                <p className="poh-path-desc">The other party already filed. Enter the ID they sent you.</p>
-                <div style={{marginBottom:"0.75rem"}}>
-                  <input className="poh-input" placeholder="Enter case ID e.g. 5" value={loadId} onChange={e=>{setLoadId(e.target.value); setError("");}} />
+            <div className="poh-card">
+              <div className="poh-role-select-wrap">
+                <div className="poh-role-card" onClick={()=>{setMyRole("host"); loadId ? handleLoadToRespond() : setScreen("create");}}>
+                  <div className="poh-role-icon">🏠</div>
+                  <div className="poh-role-label">Host</div>
+                  <p className="poh-role-desc">I own or manage the property</p>
                 </div>
-                <button className="poh-btn-outline poh-btn-full" onClick={handleLoadToRespond}>Load &amp; Respond →</button>
+                <div className="poh-role-card" onClick={()=>{setMyRole("guest"); loadId ? handleLoadToRespond() : setScreen("create");}}>
+                  <div className="poh-role-icon">👤</div>
+                  <div className="poh-role-label">Guest</div>
+                  <p className="poh-role-desc">I rented or leased the property</p>
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* ── CREATE ── */}
+        {/* ── CREATE CASE ── */}
         {screen === "create" && (
           <div className="poh-form-wrap">
             <div className="poh-form-hdr">
-              <div className="poh-step-tag">Step 1 of 2 · Filing as {myLabel}</div>
-              <h2 className="poh-form-title">File the Dispute</h2>
-              <p className="poh-form-sub">Enter the property and agreement details. Both parties will see this.</p>
+              <div className="poh-step-tag">Step 2 of 4 · Case Details</div>
+              <h2 className="poh-form-title">Create Your Case</h2>
+              <p className="poh-form-sub">Fill in the details of your rent dispute. This will be locked onchain and shared with both parties.</p>
             </div>
             <div className="poh-card">
+              <div className={`poh-party-tag ${myTagClass}`}>{myIcon} Filing as {myLabel}</div>
               <div className="poh-field">
                 <label>Property Address</label>
-                <input className="poh-input" placeholder="e.g. 12 Adewale Street, Lekki, Lagos" value={propertyAddress} onChange={e=>setPropertyAddress(e.target.value)} />
+                <input className="poh-input" placeholder="e.g. 123 Main St, Apt 4B, Lagos" value={propertyAddress} onChange={e=>setPropertyAddress(e.target.value)} />
               </div>
               <div className="poh-field">
-                <label>Caution Fee / Deposit Amount</label>
-                <div className="poh-amount-row">
-                  <select className="poh-currency-select" value={currency} onChange={e=>setCurrency(e.target.value)}>
-                    {CURRENCIES.map(c => <option key={c} value={c}>{c}</option>)}
+                <label>Security Deposit / Caution Fee Amount</label>
+                <div style={{display:"flex",gap:"0.5rem"}}>
+                  <input className="poh-input" style={{flex:1}} type="number" placeholder="e.g. 500000" value={depositAmount} onChange={e=>setDepositAmount(e.target.value)} />
+                  <select className="poh-select" value={currency} onChange={e=>setCurrency(e.target.value)} style={{minWidth:"100px"}}>
+                    {CURRENCIES.map(c=><option key={c} value={c}>{c}</option>)}
                   </select>
-                  <input className="poh-input poh-amount-input" placeholder="e.g. 150,000" value={depositAmount} onChange={e=>setDepositAmount(e.target.value)} />
                 </div>
               </div>
-              <div className="poh-field-row">
-                <div className="poh-field"><label>Host Name</label><input className="poh-input" placeholder="e.g. Mr Bello" value={hostName} onChange={e=>setHostName(e.target.value)} /></div>
-                <div className="poh-field"><label>Guest Name</label><input className="poh-input" placeholder="e.g. Miss Tunde" value={guestName} onChange={e=>setGuestName(e.target.value)} /></div>
+              <div className="poh-field">
+                <label>Host Name</label>
+                <input className="poh-input" placeholder="Full name or company name" value={hostName} onChange={e=>setHostName(e.target.value)} />
               </div>
               <div className="poh-field">
-                <label>Original Agreement Terms</label>
-                <textarea className="poh-textarea" placeholder="Describe the original shortlet terms — what the caution fee covers, conditions for refund, check-in/check-out rules, etc." value={agreementTerms} onChange={e=>setAgreementTerms(e.target.value)} rows={4} />
+                <label>Guest Name</label>
+                <input className="poh-input" placeholder="Full name" value={guestName} onChange={e=>setGuestName(e.target.value)} />
+              </div>
+              <div className="poh-field">
+                <label>Agreement Terms (Optional)</label>
+                <textarea className="poh-textarea" placeholder="Briefly describe the rental agreement or any relevant terms both parties agreed to" value={agreementTerms} onChange={e=>setAgreementTerms(e.target.value)} rows={3} />
               </div>
               {error && <p className="poh-error">{error}</p>}
-              <button className="poh-btn-red poh-btn-full" onClick={handleCreateCase}>Create Dispute & Continue →</button>
+              <button className="poh-btn poh-btn-red poh-btn-full" onClick={handleCreateCase}>Create Case & Continue →</button>
             </div>
           </div>
         )}
 
-        {/* ── MY CLAIM ── */}
-        {screen === "my_claim" && (
+        {/* ── MY CLAIM (after creating case) ── */}
+        {screen === "my_claim" && caseId && (
           <div className="poh-form-wrap">
             <div className="poh-form-hdr">
-              <div className="poh-step-tag">Step 2 of 2 · Your Evidence</div>
-              <h2 className="poh-form-title">{myLabel}&apos;s Claim</h2>
-              <p className="poh-form-sub">Case <strong className="poh-id-badge">#{caseId}</strong> is live. Submit your side now.</p>
+              <div className="poh-step-tag">Step 3 of 4 · Your Claim · Case #{caseId}</div>
+              <h2 className="poh-form-title">Submit Your Claim</h2>
+              <p className="poh-form-sub">State your side clearly. This will be locked onchain and shared with the other party and the AI validators.</p>
             </div>
             <div className="poh-card">
-              <div className={`poh-party-tag ${myTagClass}`}>{myIcon} {myLabel}&apos;s Side</div>
+              <div className="poh-id-display">
+                <div><span style={{fontSize:"0.75rem",color:"var(--muted1)",textTransform:"uppercase"}}>Case ID</span><br/><span className="poh-id-number">#{caseId}</span></div>
+                <button className="poh-copy-btn" onClick={copyCaseId}>{copied?"✓ Copied":"📋 Copy ID"}</button>
+              </div>
+              <p style={{fontSize:"0.82rem",color:"var(--muted1)",lineHeight:"1.65"}}>Share this ID with the other party so they can load and respond to your claim.</p>
+              <div className={`poh-party-tag ${myTagClass}`}>{myIcon} Filing as {myLabel}</div>
               <div className="poh-field">
                 <label>Your Claim</label>
-                <textarea className="poh-textarea"
-                  placeholder={myRole === "host"
-                    ? "Describe why you are withholding the caution fee. Be specific about what damage or rule violation occurred."
-                    : "Describe why the caution fee should be refunded. Explain your stay and checkout condition."}
-                  value={myClaim} onChange={e=>setMyClaim(e.target.value)} rows={4} />
+                <textarea className="poh-textarea" placeholder="What happened? What do you want as a resolution?" value={myClaim} onChange={e=>setMyClaim(e.target.value)} rows={4} />
               </div>
               <div className="poh-field">
-                <label>Your Evidence</label>
-                <textarea className="poh-textarea"
-                  placeholder={myRole === "host"
-                    ? "List your evidence — damage photos, repair invoices, inspection reports, WhatsApp messages, etc."
-                    : "List your evidence — check-in photos, messages from host, receipts, WhatsApp screenshots, etc."}
-                  value={myEvidence} onChange={e=>setMyEvidence(e.target.value)} rows={4} />
+                <label>Evidence (Optional)</label>
+                <textarea className="poh-textarea" placeholder="Links to photos, receipts, messages, or any other documentation" value={myEvidence} onChange={e=>setMyEvidence(e.target.value)} rows={3} />
               </div>
               {error && <p className="poh-error">{error}</p>}
-              <button className="poh-btn-red poh-btn-full" onClick={handleMyClaim}>Seal My Claim →</button>
+              <button className="poh-btn poh-btn-red poh-btn-full" onClick={handleMyClaim}>Seal Claim Onchain →</button>
             </div>
           </div>
         )}
 
-        {/* ── RESPOND CLAIM ── */}
-        {screen === "respond_claim" && caseData && (
+        {/* ── RESPOND CLAIM (loading existing case) ── */}
+        {screen === "respond_claim" && caseId && caseData && (
           <div className="poh-form-wrap">
             <div className="poh-form-hdr">
-              <div className="poh-step-tag">Responding to Case #{caseId} · As {myLabel}</div>
-              <h2 className="poh-form-title">Submit Your Side</h2>
-              <p className="poh-form-sub">Review the dispute details below, then tell your side of the story.</p>
+              <div className="poh-step-tag">Case #{caseId} · Respond to Claim</div>
+              <h2 className="poh-form-title">Respond to the {otherLabel}'s Claim</h2>
+              <p className="poh-form-sub">You are responding as the <strong>{myLabel}</strong>. State your side clearly.</p>
             </div>
             <div className="poh-card">
-              <div className="poh-dispute-context">
-                <div className="poh-context-label">Dispute Details</div>
+              <div style={{background:"var(--ink1)",border:"1px solid var(--ink3)",borderRadius:"var(--r)",padding:"1rem"}}>
+                <div style={{fontSize:"0.75rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.05em",color:"var(--muted1)",marginBottom:"0.5rem"}}>Case Details</div>
                 <div className="poh-details-grid">
                   <span className="poh-dl">Property</span><span className="poh-dv">{caseData.property_address}</span>
-                  <span className="poh-dl">Amount</span><span className="poh-dv">{caseData.deposit_amount}</span>
+                  <span className="poh-dl">Caution Fee</span><span className="poh-dv">{caseData.deposit_amount}</span>
                   <span className="poh-dl">Host</span><span className="poh-dv">{caseData.host_name}</span>
                   <span className="poh-dl">Guest</span><span className="poh-dv">{caseData.guest_name}</span>
                 </div>
-                <div style={{marginTop:"1rem", borderTop:"1px solid var(--ink4)", paddingTop:"1rem"}}>
-                  <div className="poh-dl" style={{marginBottom:"0.4rem"}}>Original Agreement Terms</div>
-                  <p style={{fontSize:"0.83rem", color:"var(--muted2)", lineHeight:"1.65", margin:0}}>{caseData.agreement_terms}</p>
-                </div>
               </div>
-              <div className={`poh-party-tag ${myTagClass}`}>{myIcon} Your Response ({myLabel})</div>
+              <div style={{background:"rgba(192,57,43,0.06)",border:"1px solid rgba(192,57,43,0.2)",borderRadius:"var(--r)",padding:"1rem"}}>
+                <div style={{fontSize:"0.75rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.05em",color:"var(--muted1)",marginBottom:"0.5rem"}}>{otherLabel}'s Claim</div>
+                <p style={{fontSize:"0.85rem",color:"var(--text2)",lineHeight:"1.65",marginBottom:"0.75rem"}}>{myRole==="host"?caseData.guest_claim:caseData.host_claim}</p>
+                {(myRole==="host"?caseData.guest_evidence:caseData.host_evidence) && (
+                  <>
+                    <div style={{fontSize:"0.7rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.05em",color:"var(--muted1)",marginBottom:"0.25rem"}}>Evidence</div>
+                    <p style={{fontSize:"0.75rem",color:"var(--muted2)",lineHeight:"1.65"}}>{myRole==="host"?caseData.guest_evidence:caseData.host_evidence}</p>
+                  </>
+                )}
+              </div>
+              <div className={`poh-party-tag ${myTagClass}`}>{myIcon} Responding as {myLabel}</div>
               <div className="poh-field">
                 <label>Your Claim</label>
-                <textarea className="poh-textarea"
-                  placeholder={myRole === "guest"
-                    ? "Describe why the caution fee should be refunded. Be specific about your stay and checkout condition."
-                    : "Describe why you are withholding the caution fee. Be specific about damage or rule violations."}
-                  value={myClaim} onChange={e=>setMyClaim(e.target.value)} rows={4} />
+                <textarea className="poh-textarea" placeholder="Your response to the dispute. What is your side of the story?" value={myClaim} onChange={e=>setMyClaim(e.target.value)} rows={4} />
               </div>
               <div className="poh-field">
-                <label>Your Evidence</label>
-                <textarea className="poh-textarea"
-                  placeholder={myRole === "guest"
-                    ? "List your evidence — check-in photos, messages from host, receipts, WhatsApp screenshots, etc."
-                    : "List your evidence — damage photos, repair invoices, inspection reports, messages, etc."}
-                  value={myEvidence} onChange={e=>setMyEvidence(e.target.value)} rows={4} />
+                <label>Evidence (Optional)</label>
+                <textarea className="poh-textarea" placeholder="Links to photos, receipts, messages, or any other documentation" value={myEvidence} onChange={e=>setMyEvidence(e.target.value)} rows={3} />
               </div>
               {error && <p className="poh-error">{error}</p>}
-              <button className="poh-btn-red poh-btn-full" onClick={handleRespondClaim}>Submit My Response →</button>
+              <button className="poh-btn poh-btn-red poh-btn-full" onClick={handleRespondClaim}>Seal Response Onchain →</button>
             </div>
           </div>
         )}
 
-        {/* ── STATUS SCREEN ── */}
-        {screen === "status" && (
-          <div className="poh-form-wrap">
-            {caseStatus === "waiting_other" && (
-              <>
-                <div className="poh-form-hdr">
-                  <div className="poh-step-tag">Case #{caseId} · Waiting</div>
-                  <h2 className="poh-form-title">Your claim is sealed ✓</h2>
-                  <p className="poh-form-sub">{knownRole ? `The ${otherLabel} hasn't responded yet. Share the ID below.` : "The other party hasn't responded yet."}</p>
-                </div>
-                <div className="poh-card">
-                  <div className="poh-share-id-block">
-                    <p className="poh-share-label">Case ID{knownRole ? ` — share with the ${otherLabel}` : ""}:</p>
-                    <div className="poh-share-id-row">
-                      <div className="poh-share-id-num">#{caseId}</div>
-                      <button className="poh-btn-outline" onClick={copyCaseId}>{copied ? "✓ Copied!" : "Copy ID"}</button>
-                    </div>
-                  </div>
-                  {knownRole && (
-                    <div className="poh-instructions-block">
-                      <p className="poh-instructions-label">Tell the {otherLabel} to:</p>
-                      <ol className="poh-instructions-list">
-                        <li>Go to this website</li>
-                        <li>Click &ldquo;File a Dispute&rdquo; → select <strong>&ldquo;I am the {otherLabel}&rdquo;</strong></li>
-                        <li>Enter ID <strong className="poh-id-badge">#{caseId}</strong> and click &ldquo;Load &amp; Respond&rdquo;</li>
-                        <li>Submit their side of the story</li>
-                      </ol>
-                    </div>
-                  )}
-                  <div className="poh-share-note">
-                    <span className="poh-share-note-icon">💬</span>
-                    <span>Send via WhatsApp, SMS, or email. They only need the ID number.</span>
-                  </div>
-                  <div className="poh-status-check-block">
-                    <p className="poh-status-check-label">Once they&apos;ve responded, press this to check:</p>
-                    <button className="poh-btn-red poh-btn-full" disabled={statusChecking}
-                      onClick={async () => { setCheckResult(null); if (caseId) await checkStatus(caseId); }}>
-                      {statusChecking ? "⏳ Checking the blockchain..." : `Check if ${knownRole ? otherLabel : "Other Party"} Has Responded →`}
-                    </button>
-                    {checkResult === "not_yet" && (
-                      <div className="poh-check-result poh-check-waiting">
-                        <span>⏳</span>
-                        <span>{knownRole ? otherLabel : "Other party"} has <strong>not responded yet.</strong> Send them the ID and ask them to file their side.</span>
-                      </div>
-                    )}
-                    {checkResult === "ready" && (
-                      <div className="poh-check-result poh-check-ready">
-                        <span>✅</span>
-                        <span>Both sides are in! Scroll down to request the verdict.</span>
-                      </div>
-                    )}
-                  </div>
-                  {error && <p className="poh-error">{error}</p>}
-                </div>
-              </>
-            )}
-
-            {caseStatus === "ready_verdict" && (
-              <>
-                <div className="poh-form-hdr">
-                  <div className="poh-step-tag">Case #{caseId} · Both Sides Filed</div>
-                  <h2 className="poh-form-title">Ready for Verdict ⚖️</h2>
-                  <p className="poh-form-sub">Both claims are sealed onchain. Either party can now summon the judges.</p>
-                </div>
-                <div className="poh-card">
-                  <div className="poh-ready-banner">
-                    <span className="poh-ready-icon">✅</span>
-                    <div>
-                      <div className="poh-ready-title">Both sides have filed their claims</div>
-                      <div className="poh-ready-sub">The AI judges are standing by. This takes 30–60 seconds once requested.</div>
-                    </div>
-                  </div>
-                  <div className="poh-validators-block">
-                    <p className="poh-validators-label">5 AI validators will evaluate independently:</p>
-                    <div className="poh-chips">
-                      {["GPT-5.1","Grok-4","Qwen3-235b","Claude Sonnet","+ more"].map(c=><span key={c} className="poh-chip">{c}</span>)}
-                    </div>
-                    <p className="poh-pending-note">Each validator reads both sides and issues a verdict. Majority ruling is sealed permanently onchain.</p>
-                  </div>
-                  {error && <p className="poh-error">{error}</p>}
-                  <button className="poh-btn-red poh-btn-full poh-btn-gavel" onClick={handleRequestVerdict}>⚖️ Request AI Verdict — Round 1</button>
-                </div>
-              </>
+        {/* ── STATUS CHECK ── */}
+        {screen === "status" && caseId && (
+          <div className="poh-status-screen">
+            {statusChecking ? (
+              <div className="poh-status-card">
+                <div className="poh-spinner" />
+                <p className="poh-status-title">Checking case status...</p>
+              </div>
+            ) : checkResult === "not_yet" ? (
+              <div className="poh-status-card">
+                <div className="poh-status-icon">⏳</div>
+                <div className="poh-status-title">Waiting for the other party</div>
+                <p className="poh-status-desc">You've filed your claim. The {otherLabel} needs to respond before we can summon the validators. Share Case ID <strong className="poh-id-badge">#{caseId}</strong> with them.</p>
+                <button className="poh-btn poh-btn-outline" onClick={()=>checkStatus(caseId)}>🔄 Check Status Again</button>
+                <button className="poh-btn poh-btn-ghost" onClick={reset}>← Back to Home</button>
+              </div>
+            ) : (
+              <div className="poh-status-card">
+                <div className="poh-status-icon">✅</div>
+                <div className="poh-status-title">Both sides are in!</div>
+                <p className="poh-status-desc">All claims are sealed onchain. You can now summon the 5 AI validators to reach a verdict.</p>
+                <button className="poh-btn poh-btn-gold poh-btn-full poh-btn-gavel" onClick={handleRequestVerdict}>⚖️ Summon the Validators — Get Verdict</button>
+              </div>
             )}
           </div>
         )}
 
-        {/* ── ROUND 1 VERDICT (with appeal option) ── */}
+        {/* ── VERDICT ── */}
         {screen === "verdict" && caseData && (() => {
           const winner = resolveWinner(caseData);
           return (
             <div className="poh-verdict-screen">
               <div className={`poh-verdict-banner ${winner === "guest" ? "poh-guest-wins" : "poh-host-wins"}`}>
-                <div className="poh-round-badge">⚖️ Round 1 Verdict · Case #{caseData.case_id}</div>
+                <div className="poh-final-badge">Round 1 Verdict · Appeals Possible</div>
                 <div className="poh-verdict-seal"><Logo size={52} /></div>
                 <div className="poh-verdict-winner">{winner === "guest" ? "Guest Wins" : "Host Wins"}</div>
                 <div className="poh-verdict-deposit">{caseData.verdict}</div>
@@ -1005,78 +754,82 @@ export default function Home() {
                   <div className="poh-contract-ref">Contract: <span className="poh-mono">{CONTRACT_ADDRESS.slice(0,10)}...{CONTRACT_ADDRESS.slice(-6)}</span></div>
                 </div>
 
-{/* APPEALS DECISION */}
-<div className="poh-vcard" style={{background:"rgba(212,168,67,0.04)", border:"1px solid rgba(212,168,67,0.2)"}}>
-  <h3 style={{color:"var(--gold2)"}}>🔁 This Is Not Final Yet</h3>
-  <p style={{marginBottom:"1.25rem"}}>The losing party may appeal or accept this verdict. If appealed, a fresh panel of 5 validators reviews the full case and must explicitly address why they uphold or overturn this ruling. After Round 2, the verdict is locked forever.</p>
-  <div className="poh-appeal-actions">
-    {/* No role selected — prompt them to identify first */}
-    {!myRole && (
-      <>
-        <p className="poh-appeal-note">To take action on this verdict, reload this case with your role selected.</p>
-        <button className="poh-btn-outline poh-btn-full" onClick={() => { setLoadId(String(caseData.case_id)); setScreen("role_select"); }}>
-          Select My Role →
-        </button>
-      </>
-    )}
+                {/* APPEALS DECISION */}
+                <div className="poh-vcard" style={{background:"rgba(212,168,67,0.04)", border:"1px solid rgba(212,168,67,0.2)"}}>
+                  <h3 style={{color:"var(--gold2)"}}>🔁 This Is Not Final Yet</h3>
+                  <p style={{marginBottom:"1.25rem"}}>The losing party may appeal or accept this verdict. If appealed, a fresh panel of 5 validators reviews the full case and must explicitly address why they uphold or overturn this ruling. After Round 2, the verdict is locked forever.</p>
+                  <div className="poh-appeal-actions">
+                    {/* No role selected — prompt them to identify first */}
+                    {!myRole && (
+                      <>
+                        <p className="poh-appeal-note">To take action on this verdict, reload this case with your role selected.</p>
+                        <button className="poh-btn-outline poh-btn-full" onClick={() => { setLoadId(String(caseData.case_id)); setScreen("role_select"); }}>
+                          Select My Role →
+                        </button>
+                      </>
+                    )}
 
-    {/* Role selected — winner sees waiting UI, loser sees action buttons */}
-    {myRole && (() => {
-      const iWon = resolveWinner(caseData) === myRole;
-      if (iWon) {
-        return (
-          <div style={{
-            background: "rgba(39,174,96,0.06)",
-            border: "1px solid rgba(39,174,96,0.2)",
-            borderRadius: "var(--r)",
-            padding: "1.25rem",
-            display: "flex",
-            flexDirection: "column" as const,
-            gap: "0.75rem",
-            alignItems: "center",
-            textAlign: "center" as const,
-          }}>
-            <div style={{fontSize:"2rem"}}>🏆</div>
-            <div style={{fontSize:"1rem", fontWeight:700, color:"var(--green2)"}}>
-              You won this round
+                    {/* Role selected — winner sees waiting UI, loser sees action buttons */}
+                    {myRole && (() => {
+                      const iWon = resolveWinner(caseData) === myRole;
+                      if (iWon) {
+                        return (
+                          <div style={{
+                            background: "rgba(39,174,96,0.06)",
+                            border: "1px solid rgba(39,174,96,0.2)",
+                            borderRadius: "var(--r)",
+                            padding: "1.25rem",
+                            display: "flex",
+                            flexDirection: "column" as const,
+                            gap: "0.75rem",
+                            alignItems: "center",
+                            textAlign: "center" as const,
+                          }}>
+                            <div style={{fontSize:"2rem"}}>🏆</div>
+                            <div style={{fontSize:"1rem", fontWeight:700, color:"var(--green2)"}}>
+                              You won this round
+                            </div>
+                            <div style={{fontSize:"0.82rem", color:"var(--muted2)", lineHeight:1.65, maxWidth:"320px"}}>
+                              The {myRole === "host" ? "guest" : "host"} can accept this verdict or file an appeal within their own session. You'll be notified of the outcome when they act — or check back using Case ID <strong style={{color:"var(--text2)"}}>#{caseData.case_id}</strong>.
+                            </div>
+                            <div style={{
+                              display:"flex", alignItems:"center", gap:"8px",
+                              background:"rgba(255,255,255,0.04)", border:"1px solid var(--ink4)",
+                              borderRadius:"999px", padding:"0.3rem 1rem",
+                              fontSize:"0.75rem", color:"var(--muted1)", fontFamily:"monospace"
+                            }}>
+                              <span style={{width:7, height:7, borderRadius:"50%", background:"var(--gold2)", display:"inline-block", flexShrink:0}} />
+                              Awaiting {myRole === "host" ? "guest" : "host"} response
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <>
+                            <div style={{
+                              background:"rgba(192,57,43,0.06)", border:"1px solid rgba(192,57,43,0.2)",
+                              borderRadius:"var(--r)", padding:"0.75rem 1rem",
+                              fontSize:"0.82rem", color:"#f5a0a0", lineHeight:1.65
+                            }}>
+                              ⚠️ You lost Round 1. You may appeal or accept the verdict below. This is your only appeal — after Round 2 the result is locked permanently.
+                            </div>
+                            <button className="poh-btn-red poh-btn-full" onClick={() => setScreen("appeal")}>
+                              🔁 I Disagree — File an Appeal (Round 2)
+                            </button>
+                            <div className="poh-appeal-divider"><span>or</span></div>
+                            <button className="poh-btn-green poh-btn-full" onClick={handleAcceptVerdict}>
+                              ✓ I Accept This Verdict — Lock It Final
+                            </button>
+                          </>
+                        );
+                      }
+                    })()}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style={{fontSize:"0.82rem", color:"var(--muted2)", lineHeight:1.65, maxWidth:"320px"}}>
-              The {myRole === "host" ? "guest" : "host"} can accept this verdict or file an appeal within their own session. You'll be notified of the outcome when they act — or check back using Case ID <strong style={{color:"var(--text2)"}}>#{caseData.case_id}</strong>.
-            </div>
-            <div style={{
-              display:"flex", alignItems:"center", gap:"8px",
-              background:"rgba(255,255,255,0.04)", border:"1px solid var(--ink4)",
-              borderRadius:"999px", padding:"0.3rem 1rem",
-              fontSize:"0.75rem", color:"var(--muted1)", fontFamily:"monospace"
-            }}>
-              <span style={{width:7, height:7, borderRadius:"50%", background:"var(--gold2)", display:"inline-block", flexShrink:0}} />
-              Awaiting {myRole === "host" ? "guest" : "host"} response
-            </div>
-          </div>
-        );
-      } else {
-        return (
-          <>
-            <div style={{
-              background:"rgba(192,57,43,0.06)", border:"1px solid rgba(192,57,43,0.2)",
-              borderRadius:"var(--r)", padding:"0.75rem 1rem",
-              fontSize:"0.82rem", color:"#f5a0a0", lineHeight:1.65
-            }}>
-              ⚠️ You lost Round 1. You may appeal or accept the verdict below. This is your only appeal — after Round 2 the result is locked permanently.
-            </div>
-            <button className="poh-btn-red poh-btn-full" onClick={() => setScreen("appeal")}>
-              🔁 I Disagree — File an Appeal (Round 2)
-            </button>
-            <div className="poh-appeal-divider"><span>or</span></div>
-            <button className="poh-btn-green poh-btn-full" onClick={handleAcceptVerdict}>
-              ✓ I Accept This Verdict — Lock It Final
-            </button>
-          </>
-        );
-      }
-    })()}
-  </div>
-</div>
+          );
+        })()}
 
         {/* ── APPEAL SCREEN ── */}
         {screen === "appeal" && caseData && (
